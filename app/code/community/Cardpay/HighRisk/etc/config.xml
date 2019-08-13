@@ -20,7 +20,7 @@
 <congig>
     <modules>
         <Cardpay_HighRisk>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
         </Cardpay_HighRisk>
     </modules>
     <global>
@@ -73,7 +73,7 @@
         <payment>
             <highrisk>
                 <active>0</active>
-                <model>highrisk/paymentMethod</model>
+                <model>highrisk/paymentmethod</model>
                 <order_status>processing</order_status>
                 <title>Credit Card (Cardpay Solutions)</title>
                 <cctypes>VI,MC,AE,DI,JCB</cctypes>
