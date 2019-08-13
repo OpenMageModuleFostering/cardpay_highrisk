@@ -95,7 +95,7 @@ class Cardpay_HighRisk_CreditCardController extends Mage_Customer_AccountControl
             $card->setData('cc_last4', substr($card->getCcNumber(), -4));
             $card->setData('cardholder_firstname', $cardholderFirstname);
             $card->setData('cardholder_lastname', $cardholderLastname);
-            $highrisk = Mage::getModel('highrisk/paymentmethod');
+            $highrisk = Mage::getModel('highrisk/paymentMethod');
             try {
                 $token = $highrisk->verify($card);
             } catch (Exception $e) {
@@ -141,7 +141,7 @@ class Cardpay_HighRisk_CreditCardController extends Mage_Customer_AccountControl
             $card->setData('cc_last4', substr($card->getCcNumber(), -4));
             $card->setData('cardholder_firstname', $cardholderFirstname);
             $card->setData('cardholder_lastname', $cardholderLastname);
-            $highrisk = Mage::getModel('highrisk/paymentmethod');
+            $highrisk = Mage::getModel('highrisk/paymentMethod');
             try {
                 $token = $highrisk->verify($card);
             } catch (Exception $e) {

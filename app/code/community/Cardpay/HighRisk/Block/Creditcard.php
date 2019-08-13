@@ -182,7 +182,7 @@ class Cardpay_HighRisk_Block_Creditcard extends Mage_Core_Block_Template
     public function getCcAvailableTypes()
     {
         $types = Mage::getSingleton('payment/config')->getCcTypes();
-        if ($method = Mage::getModel('highrisk/paymentmethod')) {
+        if ($method = Mage::getModel('highrisk/paymentMethod')) {
             $availableTypes = $method->getConfigData('cctypes');
             if ($availableTypes) {
                 $availableTypes = explode(',', $availableTypes);
@@ -230,7 +230,7 @@ class Cardpay_HighRisk_Block_Creditcard extends Mage_Core_Block_Template
      */
     public function hasVerification()
     {
-        $method = Mage::getModel('highrisk/paymentmethod');
+        $method = Mage::getModel('highrisk/paymentMethod');
         return $method->getConfigData('useccv');
     }
 }

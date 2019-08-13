@@ -71,7 +71,7 @@ class Cardpay_HighRisk_Model_Creditcard extends Mage_Core_Model_Abstract
      */
     public function useVault()
     {
-        $highrisk = Mage::getModel('highrisk/paymentmethod');
+        $highrisk = Mage::getModel('highrisk/paymentMethod');
         return $highrisk->getConfigData('use_vault');
     }
 
@@ -82,7 +82,7 @@ class Cardpay_HighRisk_Model_Creditcard extends Mage_Core_Model_Abstract
      */
     public function getCardTypeName()
     {
-        $highrisk = Mage::getModel('highrisk/paymentmethod');
+        $highrisk = Mage::getModel('highrisk/paymentMethod');
         return Mage::helper('highrisk')->getCcTypeName($this->getCcType());
     }
 

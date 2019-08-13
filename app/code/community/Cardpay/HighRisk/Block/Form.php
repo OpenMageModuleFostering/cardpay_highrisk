@@ -42,7 +42,7 @@ class Cardpay_HighRisk_Block_Form extends Mage_Payment_Block_Form_Cc
     public function canSaveCard()
     {
         $methodRegister = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
-        if (Mage::getModel('highrisk/paymentmethod')->getConfigData('use_vault')
+        if (Mage::getModel('highrisk/paymentMethod')->getConfigData('use_vault')
             && (Mage::getSingleton('customer/session')->isLoggedIn()
             || Mage::getSingleton('checkout/type_onepage')->getCheckoutMethod() == $methodRegister)
         ) {
