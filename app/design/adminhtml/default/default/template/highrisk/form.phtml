@@ -121,6 +121,14 @@ $_useVault = $_model->useVault() && count($_savedCards);
         var token = selectBox.getValue();
         if (token)
         {
+        	$('<?php echo $_code ?>_cc_type').value = "";
+            $('<?php echo $_code ?>_cc_number').value = "";
+            $('<?php echo $_code ?>_expiration').value = "";
+            $('<?php echo $_code ?>_expiration_yr').value = "";
+            <?php if($this->hasVerification()): ?>
+                $('<?php echo $_code ?>_cc_cid').value = "";
+            <?php endif; ?>
+            $('<?php echo $_code ?>_save_card').checked = false;
             $$('.hide-if-token').invoke('hide');
             enableDisableFields("disabled");
         }
