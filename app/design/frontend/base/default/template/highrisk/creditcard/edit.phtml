@@ -1,0 +1,134 @@
+<?php
+/**
+ * Cardpay Solutions, Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * PHP version 5
+ * 
+ * @category  Cardpay
+ * @package   Cardpay_HighRisk
+ * @copyright Copyright (c) 2015 Cardpay Solutions, Inc. (http://www.cardpaymerchant.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ */
+?>
+<div class="page-title">
+    <h1><?php echo $this->getTitle() ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php
+if ($this->isEditMode()) {
+    $creditCard = $this->creditCard();
+    $currentCcType = $creditCard->getCcType();
+    $currentCcExpMonth = $creditCard->getCcExpMonth();
+    $currentCcExpYear = $creditCard->getCcExpYear();
+    $isCcDefault = $creditCard->getIsDefault();
+} else {
+	$currentCcType = '';
+    $currentCcExpMonth = '';
+    $currentCcExpYear = '';
+}
+?>
+<form action='<?php echo $this->getFormAction() ?>' method="post" id="cc-form-validate">
+    <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <h2 class="legend"><?php echo $this->__('Credit Card') ?></h2>
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        
+        <ul class="form-list" id="payment_form_highrisk">
+            <li>
+                <label for="highrisk_cc_type" class="required"><em>*</em><?php echo $this->__('Credit Card Type') ?></label>
+                <div class="input-box">
+                    <select id="highrisk_cc_type" name="payment[cc_type]" class="required-entry validate-cc-type-select">
+                        <option value=""><?php echo $this->__('--Please Select--')?></option>
+                        <?php foreach ($this->getCcAvailableTypes() as $_typeCode => $_typeName): ?>
+                            <option value="<?php echo $_typeCode ?>"<?php if($_typeCode==$currentCcType): ?> selected="selected"<?php endif ?>><?php echo $_typeName ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+            </li>
+            <li>
+                <label for="highrisk_cc_number" class="required"><em>*</em><?php echo $this->__('Credit Card Number') ?></label>
+                <div class="input-box">
+                    <input type="text" id="highrisk_cc_number" name="payment[cc_number]" title="<?php echo $this->__('Credit Card Number') ?>" class="input-text validate-cc-number validate-cc-type" value="" />
+                </div>
+            </li>
+            <li id="highrisk_cc_type_exp_div" class="sp-methods">
+                <label for="highrisk_expiration" class="required"><em>*</em><?php echo $this->__('Expiration Date') ?></label>
+                <div class="input-box">
+                    <div class="v-fix">
+                        <select id="highrisk_expiration" name="payment[cc_exp_month]" class="month validate-cc-exp required-entry">
+                        <?php foreach ($this->getCcMonths() as $k=>$v): ?>
+                            <option value="<?php echo $k?$k:'' ?>"<?php if($k==$currentCcExpMonth): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                        <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="v-fix">
+                        <select id="highrisk_expiration_yr" name="payment[cc_exp_year]" class="year required-entry">
+                        <?php foreach ($this->getCcYears() as $k=>$v): ?>
+                            <option value="<?php echo $k?$k:'' ?>"<?php if($k==$currentCcExpYear): ?> selected="selected"<?php endif ?>><?php echo $v ?></option>
+                        <?php endforeach ?>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <?php if($this->hasVerification()): ?>
+            <li id="highrisk_cc_type_cvv_div" class="sp-methods">
+                <label for="highrisk_cc_cid" class="required"><em>*</em><?php echo $this->__('Card Verification Number') ?></label>
+                <div class="input-box">
+                    <div class="v-fix">
+                        <input type="text" title="<?php echo $this->__('Card Verification Number') ?>" class="input-text cvv required-entry validate-cc-cvn" id="highrisk_cc_cid" name="payment[cc_cid]" value="" />
+                    </div>
+                    <a href="#" class="cvv-what-is-this"><?php echo $this->__('What is this?') ?></a>
+                </div>
+            </li>
+            <?php endif; ?>
+            <?php if ($this->canShowMakeDefault()): ?>
+            <li id="highrisk_cc_make_default_div">
+                <label for="highrisk_cc_make_default"><?php echo $this->__('Make Default') ?></label>
+                <div class="input-box">
+                    <input type="checkbox" name="payment[is_default]" id="highrisk_cc_make_default" value="1" />
+                </div>
+            </li>
+            <?php else: ?>
+            <input type="hidden" name="payment[is_default]" id="highrisk_cc_make_default" value="1" />
+            <?php endif; ?>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <button type="submit" class="button" title="<?php echo $this->__('Submit') ?>"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+    </div>
+</form>
+<div class="tool-tip" id="payment-tool-tip" style="display:none;">
+    <div class="btn-close"><a href="#" id="payment-tool-tip-close" title="<?php echo $this->__('Close') ?>"><?php echo $this->__('Close') ?></a></div>
+    <div class="tool-tip-content"><img src="<?php echo $this->getSkinUrl('images/cvv.gif') ?>" alt="<?php echo $this->__('Card Verification Number Visual Reference') ?>" title="<?php echo $this->__('Card Verification Number Visual Reference') ?>" /></div>
+</div>
+<script type="text/javascript">
+    //< ![CDATA[
+        var dataForm = new VarienForm('cc-form-validate', true);
+    //]]>
+</script>
+<script type="text/javascript">
+    function toggleToolTip(event){
+        if($('payment-tool-tip')){
+            $('payment-tool-tip').setStyle({
+                left: (Event.pointerX(event)-100)+'px',
+                top: (Event.pointerY(event)-200)+'px'
+            });
+            $('payment-tool-tip').toggle();
+        }
+        Event.stop(event);
+    }
+
+    $$('.cvv-what-is-this').each(function(element){
+        Event.observe(element, 'click', toggleToolTip);
+    });
+    if($('payment-tool-tip-close')){
+        Event.observe($('payment-tool-tip-close'), 'click', toggleToolTip);
+    }
+</script>

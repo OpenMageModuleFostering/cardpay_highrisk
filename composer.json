@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Cardpay_HighRisk",
+    "type": "magento-module",
+    "license": "Open-Software-License-(OSL)",
+    "homepage": "",
+    "description": "Cardpay Solutions payment extension for high risk merchant categories.",
+    "authors": [
+    {
+        "name": "Brian McGowan",
+        "email": "bmcgowan@cardpaysolutions.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

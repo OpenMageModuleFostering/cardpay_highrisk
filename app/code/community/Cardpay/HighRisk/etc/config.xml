@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cardpay Solutions, Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * PHP version 5
+ * 
+ * @category  Cardpay
+ * @package   Cardpay_HighRisk
+ * @copyright Copyright (c) 2015 Cardpay Solutions, Inc. (http://www.cardpaymerchant.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ */
+-->
+<congig>
+    <modules>
+        <Cardpay_HighRisk>
+            <version>1.0.0</version>
+        </Cardpay_HighRisk>
+    </modules>
+    <global>
+        <blocks>
+            <highrisk>
+                <class>Cardpay_HighRisk_Block</class>
+            </highrisk>
+        </blocks>
+        <models>
+            <highrisk>
+                <class>Cardpay_HighRisk_Model</class>
+                <resourceModel>highrisk_resource</resourceModel>
+            </highrisk>
+            <highrisk_resource>
+                <class>Cardpay_HighRisk_Model_Resource</class>
+                <entities>
+                    <creditcard>
+                        <table>cardpay_credit_card</table>
+                    </creditcard>
+                </entities>
+            </highrisk_resource>
+        </models>
+        <resources>
+            <highrisk_setup>
+                <setup>
+                    <module>Cardpay_HighRisk</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </highrisk_setup>
+            <highrisk_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </highrisk_write>
+            <highrisk_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </highrisk_read>
+        </resources>
+        <helpers>
+            <highrisk>
+                <class>Cardpay_HighRisk_Helper</class>
+            </highrisk>
+        </helpers>
+    </global>
+    <default>
+        <payment>
+            <highrisk>
+                <active>0</active>
+                <model>highrisk/paymentMethod</model>
+                <order_status>processing</order_status>
+                <title>Credit Card (Cardpay Solutions)</title>
+                <cctypes>VI,MC,AE,DI,JCB</cctypes>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+                <useccv>1</useccv>
+                <use_vault>1</use_vault>
+            </highrisk>
+        </payment>
+    </default>
+    <frontend>
+        <layout>
+            <updates>
+                <highrisk module="Cardpay_HighRisk">
+                    <file>highrisk.xml</file>
+                </highrisk>
+            </updates>
+        </layout>
+        <routers>
+            <customer>
+                <args>
+                    <modules>
+                        <Cardpay_HighRisk after="Mage_Customer">Cardpay_HighRisk</Cardpay_HighRisk>
+                    </modules>
+                </args>
+            </customer>
+        </routers>
+        <translate>
+            <modules>
+                <Cardpay_HighRisk>
+                    <files>
+                        <default>Cardpay_HighRisk.csv</default>
+                    </files>
+                </Cardpay_HighRisk>
+            </modules>
+        </translate>
+    </frontend>
+</congig>

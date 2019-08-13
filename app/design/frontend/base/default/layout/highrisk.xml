@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cardpay Solutions, Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * PHP version 5
+ * 
+ * @category  Cardpay
+ * @package   Cardpay_HighRisk
+ * @copyright Copyright (c) 2015 Cardpay Solutions, Inc. (http://www.cardpaymerchant.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ */
+-->
+<layout version="0.1.0">
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="highrisk" ifconfig="payment/highrisk/use_vault">
+                <name>credit_card</name>
+                <path>customer/creditcard/</path>
+                <label>My Credit Cards</label>
+            </action>
+        </reference>
+    </customer_account>
+    <customer_creditcard_index>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="highrisk/creditcard" name="customer_creditcard" template="highrisk/creditcard/index.phtml" />
+        </reference>
+    </customer_creditcard_index>
+    <customer_creditcard_new>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="highrisk/creditcard" name="customer_creditcard" template="highrisk/creditcard/edit.phtml"/>
+        </reference>
+    </customer_creditcard_new>
+    <customer_creditcard_edit>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="highrisk/creditcard" name="customer_creditcard" template="highrisk/creditcard/edit.phtml">
+                <action method="setType"><value>edit</value></action>
+            </block>
+        </reference>
+    </customer_creditcard_edit>
+    <customer_creditcard_delete>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="highrisk/creditcard" name="customer_creditcard" template="highrisk/creditcard/delete.phtml" />
+        </reference>
+    </customer_creditcard_delete>
+</layout>

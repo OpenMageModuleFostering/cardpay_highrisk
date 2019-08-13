@@ -1,0 +1,64 @@
+<?php
+/**
+ * Cardpay Solutions, Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * PHP version 5
+ * 
+ * @category  Cardpay
+ * @package   Cardpay_HighRisk
+ * @copyright Copyright (c) 2015 Cardpay Solutions, Inc. (http://www.cardpaymerchant.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ */
+?>
+<?php
+    $highrisk = Mage::getModel('highrisk/creditcard');
+    $_savedCards = $highrisk->currentCustomerCards();
+?>
+<div class="page-title title-buttons">
+    <h1><?php echo $this->__('My Credit Cards') ?></h1>
+    <?php if ($highrisk->useVault()): ?>
+        <button type="button" title="<?php echo $this->__('Add Credit Card') ?>" class="button" onclick="window.location='<?php echo $this->getAddUrl() ?>';"><span><span><?php echo $this->__('Add Credit Card') ?></span></span></button>
+    <?php endif ?>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php if (count($_savedCards)): ?>
+    <table class="data-table" id="my-cards-table">
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <thead>
+            <tr>
+                <th><?php echo $this->__('Type') ?></th>
+                <th><?php echo $this->__('Card Number') ?></th>
+                <th><?php echo $this->__('Expire Date') ?></th>
+                <th><?php echo $this->__('Is Default') ?></th>
+                <th colspan="2"><?php echo $this->__('Actions') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($_savedCards as $card): ?>
+                <tr>
+                    <td><?php echo $card->getCardTypeName() ?></td>
+                    <td><?php echo $card->getMaskedCardNum() ?></td>
+                    <td><?php echo $card->getCcExpMonth() . '/' . $card->getCcExpYear() ?></td>
+                    <td><?php echo ($card->getIsDefault()) ? $this->__('Yes') : $this->__('No') ?></td>
+                    <td>
+                        <a href="<?php echo $this->getEditUrl($card->getId()) ?>"><?php echo $this->__('Edit')?></a>
+                    </td>
+                    <td>
+                        <a href="<?php echo $this->getDeleteUrl($card->getId()) ?>"><?php echo $this->__('Delete')?></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>        
+    </table>
+<?php endif; ?>
