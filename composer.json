@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/Cardpay_HighRisk",
+    "name": "openmage-module-fostering\/cardpay_highrisk",
     "type": "magento-module",
-    "license": "Open-Software-License-(OSL)",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "Cardpay Solutions payment extension for high risk merchant categories.",
     "authors": [
